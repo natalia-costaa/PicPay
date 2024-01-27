@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('payee');
-            $table->string('payer');
-            $table->double('value');
+	    $table->double('value');
+	    $table->unsignedBigInteger('payer_id');
+	    $table->unsignedBigInteger('payee_id');
+	    $table->foreign('payer_id')->references('id')->on('wallets');
+	    $table->foreign('payee_id')->references('id')->on('wallets');
         });
     }
 
