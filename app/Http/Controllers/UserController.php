@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use App\Models\Client;
 class UserController extends Controller
 {
     /**
@@ -29,8 +29,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-	 User::create($request->all());
-         return "User created successfully.";
+
+	    $user = User::create($request->all());
+	    Client::create( [ 'user_id' => $user->id,
+		    	      'cpf' => $request->cpf ]);
+            return "User created successfully.";
     }
 
     /**
